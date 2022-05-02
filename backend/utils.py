@@ -29,6 +29,7 @@ def load_sentences_and_embeddings(embedding_cache_path, dataset_path, model, mod
         if not os.path.exists(dataset_path):
             print("Path doesn't exist")
         else:
+            corpus_df = pd.read_csv(dataset_path)
             # Get all unique sentences from the file
             corpus_sentences = set()
             with open(dataset_path, encoding='utf8') as fIn:
@@ -55,11 +56,5 @@ def load_sentences_and_embeddings(embedding_cache_path, dataset_path, model, mod
             corpus_embeddings = cache_data['embeddings']
    
     
-    return corpus_sentences, corpus_embeddings
+    return corpus_df, corpus_embeddings
 
-
-# @st.cache(allow_output_mutation=True)
-# def load_texts(data_path):
-#     # texts database pre-generated
-#     corpus_texts = pd.read_csv("./data/artwork_detail_prepcd_cleaned.csv")
-#     return corpus_texts
