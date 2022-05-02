@@ -23,7 +23,8 @@ def lower_case(iterator):
 def load_sentences_and_embeddings(embedding_cache_path, dataset_path, model, model_name):
     max_corpus_size = 100000
     splitted_path='-'.join(str(embedding_cache_path).split("/")[2].split(".")[0].split("-")[3:])
-
+    corpus_df = pd.DataFrame()
+    
     if splitted_path != model_name:
         # Check if the dataset exists.
         if not os.path.exists(dataset_path):
