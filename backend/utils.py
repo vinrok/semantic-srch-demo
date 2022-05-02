@@ -48,13 +48,10 @@ def load_sentences_and_embeddings(embedding_cache_path, dataset_path, model, mod
                 pickle.dump({'sentences': corpus_sentences, 'embeddings': corpus_embeddings}, fOut)
     else:
         print("Load pre-computed embeddings from disc")
-        # embedding pre-generated
-        embedding_data = torch.load(
-            embedding_cache_path
-        )
-
-        corpus_sentences = embedding_data['sentences']
-        corpus_embeddings = embedding_data['embeddings']
+        with open(embedding_cache_path, "rb") as fIn:
+            cache_data = pickle.load(fIn)
+            corpus_sentences = cache_data['sentences']
+            corpus_embeddings = cache_data['embeddings']
    
     
     return corpus_sentences, corpus_embeddings
