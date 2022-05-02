@@ -1,6 +1,6 @@
 import torch
 
-from backend.utils import load_embeddings, load_model, load_texts
+from backend.utils import load_sentences_and_embeddings, load_model
 
 # Search
 def query_search(query: str, n_desc: int, model_name: str):
@@ -10,9 +10,12 @@ def query_search(query: str, n_desc: int, model_name: str):
     # query_emb = model.encode(query, convert_to_tensor=True)[None, :]
     query_emb = model.encode(query, convert_to_tensor=True)
 
-    print("loading embedding")
-    corpus_emb = load_embeddings()
-    corpus_texts = load_texts()
+    embedding_cache_path = "./embeddings/art-descr-embeddings-all-mpnet-base-v2.pkl"
+    dataset_path = "./data/artwork_detail_prepcd_cleaned.csv"
+
+    print("loading embeddings")
+    corpus_texts, corpus_emb = load_sentences_and_embeddings(embedding_cache_path, dataset_path, model)
+    
 
     # Getting hits
     hits = torch.nn.functional.cosine_similarity(
