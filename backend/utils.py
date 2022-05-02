@@ -24,13 +24,11 @@ def load_sentences_and_embeddings(embedding_cache_path, dataset_path, model, mod
     max_corpus_size = 100000
     splitted_path='-'.join(str(embedding_cache_path).split("/")[2].split(".")[0].split("-")[3:])
     corpus_df = pd.DataFrame()
-    
-    if splitted_path != model_name:
+
+    if os.path.exists(dataset_path):
+        corpus_df = pd.read_csv(dataset_path)
         # Check if the dataset exists.
-        if not os.path.exists(dataset_path):
-            print("Path doesn't exist")
-        else:
-            corpus_df = pd.read_csv(dataset_path)
+        if splitted_path != model_name:
             # Get all unique sentences from the file
             corpus_sentences = set()
             with open(dataset_path, encoding='utf8') as fIn:
@@ -41,7 +39,6 @@ def load_sentences_and_embeddings(embedding_cache_path, dataset_path, model, mod
                     if len(corpus_sentences) >= max_corpus_size:
                         break
 
-
             corpus_sentences = list(corpus_sentences)
             print("Encode the corpus. This might take a while")
             corpus_embeddings = model.encode(corpus_sentences, show_progress_bar=True, convert_to_tensor=True)
@@ -49,12 +46,16 @@ def load_sentences_and_embeddings(embedding_cache_path, dataset_path, model, mod
             print("Store file on disc")
             with open(embedding_cache_path, "wb") as fOut:
                 pickle.dump({'sentences': corpus_sentences, 'embeddings': corpus_embeddings}, fOut)
+              
+        else:
+            print("Load pre-computed embeddings from disc")
+            with open(embedding_cache_path, "rb") as fIn:
+                cache_data = pickle.load(fIn)
+                corpus_sentences = cache_data['sentences']
+                corpus_embeddings = cache_data['embeddings']
+
     else:
-        print("Load pre-computed embeddings from disc")
-        with open(embedding_cache_path, "rb") as fIn:
-            cache_data = pickle.load(fIn)
-            corpus_sentences = cache_data['sentences']
-            corpus_embeddings = cache_data['embeddings']
+        print("Path doesn't exist")
    
     
     return corpus_df, corpus_embeddings
