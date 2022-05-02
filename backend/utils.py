@@ -1,4 +1,5 @@
 import pandas as pd
+from zmq import device
 import streamlit as st
 import torch
 import csv
@@ -41,7 +42,7 @@ def load_sentences_and_embeddings(embedding_cache_path, dataset_path, model, mod
 
             corpus_sentences = list(corpus_sentences)
             print("Encode the corpus. This might take a while")
-            corpus_embeddings = model.encode(corpus_sentences, show_progress_bar=True, convert_to_numpy=True)
+            corpus_embeddings = model.encode(corpus_sentences, show_progress_bar=True, convert_to_tensor=True)
 
             print("Store file on disc")
             with open(embedding_cache_path, "wb") as fOut:
