@@ -3,7 +3,7 @@ from PIL import Image
 
 from backend import inference
 
-st.title("Ssemantic search for artwork descritpions based on query via SBert Model.")
+st.title("Semantic search for artwork descriptions based on query via SBert Models for Semantic Similarity.")
 
 
 
@@ -19,7 +19,7 @@ n_desc = st.number_input(
 MODEL_OPTIONS = ['all-mpnet-base-v2', 'distilbert-base-nli-mean-tokens', 
                 'msmarco-distilbert-base-v4', 'all-MiniLM-L6-v2']
 
-model_choice = st.sidebar.selectbox("Models: ", options=MODEL_OPTIONS)
+model_choice = st.sidebar.selectbox("Select models from below: ", options=MODEL_OPTIONS)
 
 if st.button("Find them....."):
 
