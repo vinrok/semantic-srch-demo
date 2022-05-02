@@ -22,7 +22,7 @@ def lower_case(iterator):
 
 def load_sentences_and_embeddings(embedding_cache_path, dataset_path, model, model_name):
     max_corpus_size = 100000
-    splitted_path='-'.join(str(embedding_cache_path).split("/")[2].split(".")[0].split("-")[3:])
+    # splitted_path='-'.join(str(embedding_cache_path).split("/")[2].split(".")[0].split("-")[3:])
     corpus_df = pd.DataFrame()
 
     # Check if the dataset exists.
@@ -43,7 +43,7 @@ def load_sentences_and_embeddings(embedding_cache_path, dataset_path, model, mod
                         break
 
             corpus_sentences = list(corpus_sentences)
-            print("Encode the corpus. This might take a while")
+            print("Encoding the corpus. This might take a while")
             corpus_embeddings = model.encode(corpus_sentences, show_progress_bar=True, convert_to_tensor=True)
 
             print("Store file on disc")

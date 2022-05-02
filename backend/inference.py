@@ -1,6 +1,6 @@
 import torch
-
 from backend.utils import load_sentences_and_embeddings, load_model
+import streamlit as st
 
 # Search
 def query_search(query: str, n_desc: int, model_name: str):
@@ -14,7 +14,8 @@ def query_search(query: str, n_desc: int, model_name: str):
     dataset_path = "./data/artwork_detail_prepcd_cleaned.csv"
 
     print("loading embeddings")
-    corpus_texts, corpus_emb = load_sentences_and_embeddings(embedding_cache_path, dataset_path, model, model_name)
+    with st.spinner("Encoding the corpus. This might take a while"):
+        corpus_texts, corpus_emb = load_sentences_and_embeddings(embedding_cache_path, dataset_path, model, model_name)
     
 
     # Getting hits
