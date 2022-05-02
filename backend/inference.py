@@ -14,7 +14,7 @@ def query_search(query: str, n_desc: int, model_name: str):
     dataset_path = "./data/artwork_detail_prepcd_cleaned.csv"
 
     print("loading embeddings")
-    corpus_texts, corpus_emb = load_sentences_and_embeddings(embedding_cache_path, dataset_path, model)
+    corpus_texts, corpus_emb = load_sentences_and_embeddings(embedding_cache_path, dataset_path, model, model_name)
     
 
     # Getting hits

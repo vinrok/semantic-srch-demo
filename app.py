@@ -20,12 +20,15 @@ MODEL_OPTIONS = ['all-mpnet-base-v2', 'distilbert-base-nli-mean-tokens',
                 'msmarco-distilbert-base-v4', 'all-MiniLM-L6-v2']
 
 model_choice = st.sidebar.selectbox("Select models from below: ", options=MODEL_OPTIONS)
+print("model choice: ", model_choice)
+
+model_name = f"{model_choice}"
 
 if st.button("Find them....."):
 
     st.table(
         inference.query_search(
-            anchor, n_desc, f"sentence-transformers/{model_choice}"
+            anchor, n_desc, model_name
         )
     )
 

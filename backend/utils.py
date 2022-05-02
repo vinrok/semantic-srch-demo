@@ -19,10 +19,11 @@ def lower_case(iterator):
     return itertools.chain([next(iterator).lower()], iterator)
 
 
-def load_sentences_and_embeddings(embedding_cache_path, dataset_path, model):
+def load_sentences_and_embeddings(embedding_cache_path, dataset_path, model, model_name):
     max_corpus_size = 100000
+    splitted_path='-'.join(str(embedding_cache_path).split("/")[2].split(".")[0].split("-")[3:])
 
-    if not os.path.exists(embedding_cache_path):
+    if splitted_path != model_name:
         # Check if the dataset exists.
         if not os.path.exists(dataset_path):
             print("Path doesn't exist")
@@ -47,10 +48,9 @@ def load_sentences_and_embeddings(embedding_cache_path, dataset_path, model):
                 pickle.dump({'sentences': corpus_sentences, 'embeddings': corpus_embeddings}, fOut)
     else:
         print("Load pre-computed embeddings from disc")
-            # embedding pre-generated
+        # embedding pre-generated
         embedding_data = torch.load(
-            embedding_cache_path,
-            map_location=torch.device("cpu"),
+            embedding_cache_path
         )
 
         corpus_sentences = embedding_data['sentences']
