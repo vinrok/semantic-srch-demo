@@ -25,10 +25,13 @@ def load_sentences_and_embeddings(embedding_cache_path, dataset_path, model, mod
     splitted_path='-'.join(str(embedding_cache_path).split("/")[2].split(".")[0].split("-")[3:])
     corpus_df = pd.DataFrame()
 
+    # Check if the dataset exists.
     if os.path.exists(dataset_path):
         corpus_df = pd.read_csv(dataset_path)
-        # Check if the dataset exists.
-        if splitted_path != model_name:
+        
+        #Check if embedding cache path exists
+        if not os.path.exists(embedding_cache_path):
+        # if splitted_path != model_name:
             # Get all unique sentences from the file
             corpus_sentences = set()
             with open(dataset_path, encoding='utf8') as fIn:

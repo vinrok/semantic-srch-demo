@@ -10,7 +10,7 @@ def query_search(query: str, n_desc: int, model_name: str):
     # query_emb = model.encode(query, convert_to_tensor=True)[None, :]
     query_emb = model.encode(query, convert_to_tensor=True)
 
-    embedding_cache_path = "./embeddings/art-descr-embeddings-all-mpnet-base-v2.pkl"
+    embedding_cache_path = f"./embeddings/art-descr-embeddings-{model_name.replace('/', '_')}.pkl"
     dataset_path = "./data/artwork_detail_prepcd_cleaned.csv"
 
     print("loading embeddings")
