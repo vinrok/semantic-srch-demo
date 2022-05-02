@@ -18,7 +18,7 @@ def load_model(model_name):
 def lower_case(iterator):
     return itertools.chain([next(iterator).lower()], iterator)
 
-@st.cache(allow_output_mutation=True)
+
 def load_sentences_and_embeddings(embedding_cache_path, dataset_path, model):
     max_corpus_size = 100000
 
