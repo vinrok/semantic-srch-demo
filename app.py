@@ -1,6 +1,4 @@
 import streamlit as st
-from PIL import Image
-
 from backend import inference
 
 st.title("Semantic search for artwork descriptions based on query via SBert Models for Semantic Similarity.")
@@ -9,8 +7,10 @@ st.title("Semantic search for artwork descriptions based on query via SBert Mode
 
 anchor = st.text_input(
     "Please enter the query and based on that relevant descriptions will be procured from the data.",
-    value="Enter the query",
+    value="Contemporary art showing seductive and rebellious figures.",
 )
+
+print("Input query: ", anchor)
 
 n_desc = st.number_input(
     f"""How many similar descriptions to be displayed?""", value=2, min_value=1
